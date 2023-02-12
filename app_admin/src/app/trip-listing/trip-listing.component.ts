@@ -30,6 +30,12 @@ export class TripListingComponent implements OnInit {
         });
   }
 
+  private editTrip(trip: Trip): void {
+    localStorage.removeItem("tripCode");
+    localStorage.setItem("tripCode", trip.code);
+    this.router.navigate(['edit-trip']);
+  }
+
   ngOnInit(): void {
     this.getTrips();
   }

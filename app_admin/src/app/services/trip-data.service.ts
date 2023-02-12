@@ -20,7 +20,7 @@ export class TripDataService{
   public getTrip(tripCode: string): Promise<Trip> {
     console.log("Inside tripdataservice#gettrip(tripCode)");
     return this.http
-      .post(this.tripUrl, tripCode)
+      .get(this.tripUrl + tripCode)
       .toPromise()
       .then(response => response.json() as Trip)
       .catch(this.handleError);
@@ -39,7 +39,7 @@ export class TripDataService{
     console.log("Inside tripdataservice#updatetrip");
     console.log(formData);
     return this.http
-      .post(this.tripUrl + formData.code, formData)
+      .put(this.tripUrl + formData.code, formData)
       .toPromise()
       .then(response => response.json() as Trip[])
       .catch(this.handleError);
