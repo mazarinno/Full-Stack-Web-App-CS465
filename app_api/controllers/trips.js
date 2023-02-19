@@ -1,6 +1,7 @@
-const { model } = require('mongoose');
+const { model, mongo } = require('mongoose');
 const mongoose = require('mongoose');
-const Model = mongoose.model('trips');
+const Trip = mongoose.model('trips');
+const User = mongoose.model('users');
 
 const getUser = (req, res, callback) => {
     if (req.payload && req.payload.email) {       
@@ -27,7 +28,7 @@ const getUser = (req, res, callback) => {
 };
 
 const tripsList = async (req, res) => {
-    Model
+    Trip
         .find({})
         .exec((err, trips) => {
             if (!trips) {
@@ -47,7 +48,7 @@ const tripsList = async (req, res) => {
 };
 
 const tripsFindByCode = async (req, res) => {
-    Model  
+    Trip  
         .find({ 'code': req.params.tripCode })
         .exec((err, trip) => {
             if (!trip) {
@@ -69,7 +70,7 @@ const tripsFindByCode = async (req, res) => {
 const tripsAddTrip = async (req, res) => {
     getUser(req, res,
         (req, res) => {
-            Model
+            Trip
                 .create({
                     code: req.body.code,
                     name: req.body.name,
@@ -98,7 +99,7 @@ const tripsAddTrip = async (req, res) => {
 const tripsUpdateTrip = async (req, res) => {
     getUser(req, res, 
         (req, res) => {
-            Model
+            Trip
                 .findOneAndUpdate({'code': req.params.tripCode }, {
                     code: req.body.code,
                     name: req.body.name,
