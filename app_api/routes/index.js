@@ -5,7 +5,8 @@ const authController = require('../controllers/authentication')
 const tripsController = require('../controllers/trips');
 const auth = jwt({
     secret: process.env.JWT_SECRET,
-    userProperty: 'payload'
+    userProperty: 'payload',
+    algorithms: ["HS256"]
 });
 
 router
